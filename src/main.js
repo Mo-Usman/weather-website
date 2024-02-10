@@ -77,14 +77,7 @@ app.get('/weather', (req, res) => {
     const latitude = req.query.latitude
     const longitude = req.query.longitude
 
-    // Functions for getting the forecast
-    // geocode(city, country, (error, {latitude, longitude}) => {
-
-    //     if(error) {
-    //       return res.send({
-    //         error
-    //       })
-    //     }
+    // Function for getting the forecast
         forecast(latitude, longitude, (error, data) => {
           if(error) {
             return res.send({
@@ -92,9 +85,7 @@ app.get('/weather', (req, res) => {
             })
           }
           res.send({
-            forecast: data,
-            // city: city,
-            // country: country
+            forecast: data
           })
         })
     }
