@@ -47,17 +47,12 @@ app.get('/help', (req, res) => {
 
 // Weather route
 app.get('/weather', (req, res) => {
-    if(!req.query.city && !req.query.country) {
-        return res.send({
-            error: 'You must provide an address!'
-        })
-    }
-
-    const city = req.query.city
-    const country = req.query.country
+    if(req.query.location) {
+    
+    const location = req.query.location
 
     // Functions for getting the forecast
-    geocode(city, country, (error, {latitude, longitude}) => {
+    geocode(location, (error, {latitude, longitude}) => {
 
         if(error) {
           return res.send({
@@ -72,12 +67,39 @@ app.get('/weather', (req, res) => {
           }
           res.send({
             forecast: data,
-            city: city,
-            country: country
+            city: location.city,
+            country: location.country
           })
         })
     })
-})
+    } else {
+
+    const latitude = req.query.latitude
+    const longitude = req.query.longitude
+
+    // Functions for getting the forecast
+    // geocode(city, country, (error, {latitude, longitude}) => {
+
+    //     if(error) {
+    //       return res.send({
+    //         error
+    //       })
+    //     }
+        forecast(latitude, longitude, (error, data) => {
+          if(error) {
+            return res.send({
+                error
+            })
+          }
+          res.send({
+            forecast: data,
+            // city: city,
+            // country: country
+          })
+        })
+    }
+    })
+
 
 // 404 Page With Help Page
 app.get('/help/*', (req, res) => {

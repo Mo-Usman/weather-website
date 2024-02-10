@@ -1,7 +1,7 @@
 const request = require('request')
 
-const geocode = (city, country, callback) => {
-    const url = 'https://api.opencagedata.com/geocode/v1/json?key=df87f4d424d845098f02bf3986bc7746&q=' +city+ ' '+country+ '&limit=1&no_annotations=1'
+const geocode = (location, callback) => {
+    const url = 'https://api.opencagedata.com/geocode/v1/json?key=df87f4d424d845098f02bf3986bc7746&q=' +location+ '&limit=1&no_annotations=1'
 
     request({url, json: true}, (error, {body}) => {
 
